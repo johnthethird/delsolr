@@ -25,7 +25,7 @@ module DelSolr
       private
 
       def build_request_string()
-        raise "query_name must be set" if query_name.blank?
+        #raise "query_name must be set" if query_name.blank?
 
         opts = self.options.dup
 
@@ -60,7 +60,7 @@ module DelSolr
 
         params << build_query(:q, opts.delete(:q))
         params << {:wt => 'ruby'}
-        params << {:qt => query_name}
+        params << {:qt => query_name} if query_name
         params << {:rows => opts.delete(:rows)}
         params << {:start => opts.delete(:start)}
         params << {:fl => opts.delete(:fl)}
