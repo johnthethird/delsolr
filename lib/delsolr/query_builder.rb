@@ -134,6 +134,25 @@ module DelSolr
 
       def key_value_pair_string(k, v)
         str = ''
+        if v.is_a?(Array)
+          str = "#{k}:(#{v.join(') OR (')})"
+        elsif v.is_a?(Range)
+          str = "#{k}:[#{v.begin} TO #{v.end}]"
+        elsif v.is_a?(String)
+          if v =~ /\s/ && # if it contains a space, we may need to quote it
+            !(v =~ /^\[.+ TO .+\]$/) # HACK: if the string is a range query, do not wrap it in quotes
+            str = "#{k}:\"#{v}\""
+          else
+            str = "#{k}:#{v}"
+          end
+        else
+          str = "#{k}:#{v}"
+        end
+        str
+      end
+
+      def ORIGkey_value_pair_string(k, v)
+        str = ''
         if v.is_a?(Array) # add a filter for each value
           str_ary = []
           v.each do |val|
