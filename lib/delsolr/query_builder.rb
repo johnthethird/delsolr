@@ -136,7 +136,7 @@ module DelSolr
         str = ''
         k = "{!tag=#{k.gsub(/[^\w]+/,'') rescue 'err'}}#{k}"
         if v.is_a?(Array)
-          str = "#{k}:(#{v.join(') OR (')})"
+          str = "#{k}:\"#{v.join('" OR "')}\""
         elsif v.is_a?(Range)
           str = "#{k}:[#{v.begin} TO #{v.end}]"
         elsif v.is_a?(String)
