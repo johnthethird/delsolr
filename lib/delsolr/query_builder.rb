@@ -134,6 +134,7 @@ module DelSolr
 
       def key_value_pair_string(k, v)
         str = ''
+        k = "{!tag=#{k.gsub(/[^\w]+/,'') rescue 'err'}}#{k}"
         if v.is_a?(Array)
           str = "#{k}:(#{v.join(') OR (')})"
         elsif v.is_a?(Range)
@@ -214,7 +215,7 @@ module DelSolr
         facet_hash.each do |k,v|
           # handle some cases specially
           if 'field' == k.to_s
-            params << {"facet.field" => "#{facet_local_params}#{v}"}
+            params << {"facet.field" => "{!ex=#{v}}#{facet_local_params}#{v}"}
           elsif 'query' == k.to_s
             params << build_query("facet.query", v, facet_local_params)
           elsif ['localparams', :localparams, 'name', :name].include?(k.to_s)
@@ -223,6 +224,8 @@ module DelSolr
             params << {"f.#{facet_hash[:field]}.facet.#{k}" => "#{v}"}
           end
         end
+Rails.logger.info facet_hash.inspect
+Rails.logger.info params.inspect
         params
       end
 

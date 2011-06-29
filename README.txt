@@ -1,10 +1,13 @@
+== DO NOT USE! Specific hacks for a client app. The main gist being using the tag and ex lucene commands to
+do multi-valued faceting. One of these days we will productize it for general consumption, with the requiste blog post.
+
 = delsolr
 
 http://delsolr.rubyforge.org
 
 == DESCRIPTION:
 
-DelSolr is a light weight ruby wrapper for solr.  It's intention is to expose the full power of solr queries 
+DelSolr is a light weight ruby wrapper for solr.  It's intention is to expose the full power of solr queries
 while keeping the interface as ruby-esque as possible.
 
 == Installation
