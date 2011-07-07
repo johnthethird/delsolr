@@ -45,7 +45,8 @@ module DelSolr
         opts[:suggestionCount] ||= opts[:suggestion_count]
         opts[:onlyMorePopular] ||= opts[:only_more_popular]
 
-        raise ":query or :q must be set" if opts[:q].nil? || opts[:q].empty?
+        # Autosuggest feature needs q to be blank
+        #raise ":query or :q must be set" if opts[:q].nil? || opts[:q].empty?
 
         # clear out the "rubyish" versions, what's left will go straight to solr
         opts.delete(:query)
